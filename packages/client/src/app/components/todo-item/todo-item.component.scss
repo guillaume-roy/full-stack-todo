@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    margin: 5px;
+    background-color: lightgray;
+
+    .delete-button {
+     align-self: flex-end;
+    }
+
+    .is-checked {
+      text-decoration: line-through;
+      font-style: italic;
+      color: gray;
+    }
+}

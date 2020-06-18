@@ -6,5 +6,9 @@ Stack : .Net Core / Angular
 
 ## Structure
 
-* server : Basic server CRUD using .net core with tests
-* client : incoming
+* server : .Net Core server CRUD with unit tests (see related [README](packages/server/README.md))
+* client : Angular app with unit tests and e2e tests (see related [README](packages/client/README.md))
+
+---
+
+contact : gr.guillaume.roy@gmail.com
