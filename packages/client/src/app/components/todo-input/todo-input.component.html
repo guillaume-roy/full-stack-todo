@@ -1,2 +1,2 @@
-<input type="text" placeholder="New todo ..." [(ngModel)]="body">
+<input type="text" placeholder="New todo ..." [(ngModel)]="body" (keyup.enter)="onAdd()">
 <button [disabled]="!body" (click)="onAdd()">➕</button>
