@@ -4,6 +4,8 @@ Basic CRUD application for manage todo items.
 
 Stack : .Net Core / Angular
 
+![Todo App](cover.png)
+
 ## Structure
 
 * server : .Net Core server CRUD with unit tests (see related [README](packages/server/README.md))
