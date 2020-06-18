@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using server.DTO;
 using server.Models;
 using server.Services;
 
@@ -27,11 +28,16 @@ namespace server.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(TodoItem), 200)]
-        public async Task<IActionResult> Post(string body)
+        public async Task<IActionResult> Post([FromBody] PostTodoDTO request)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
             try
             {
-                return Ok(await _service.Add(body));
+                return Ok(await _service.Add(request.body));
             }
             catch(ArgumentNullException)
             {
@@ -41,11 +47,16 @@ namespace server.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(void), 200)]
-        public async Task<IActionResult> Check(Guid todoItemId)
+        public async Task<IActionResult> Check(CheckTodoDTO request)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
             try
             {
-                await _service.Check(todoItemId);
+                await _service.Check(request.Id);
                 return Ok();
             }
             catch
@@ -54,13 +65,13 @@ namespace server.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(void), 200)]
-        public async Task<IActionResult> Delete(Guid todoItemId)
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
-                await _service.Delete(todoItemId);
+                await _service.Delete(id);
                 return Ok();
             }
             catch
