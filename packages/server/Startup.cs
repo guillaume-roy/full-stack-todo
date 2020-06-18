@@ -9,6 +9,8 @@ namespace server
 {
     public class Startup
     {
+        private readonly string localCorsStrategy = "localCorsStrategy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,8 +21,14 @@ namespace server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy(localCorsStrategy, builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddControllers();
-            services.AddScoped<ITodoService, TodoService>();
+            services.AddSingleton<ITodoService, TodoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,8 +39,8 @@ namespace server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors(localCorsStrategy);
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
